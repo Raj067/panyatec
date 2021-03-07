@@ -63,7 +63,7 @@ urlpatterns = [
     path('teacher/roles/teacher/confirm/<str:value>', teacher_roles_teacher_confirm, name='confirm'),
     path('teacher/roles/academic/subject/', teacher_roles_academic_subject, name='Subject List'),
     path('teacher/roles/academic/subject/delete/<str:value>', teacher_roles_academic_subject_delete, name='Delete subject'),
-    path('teacher/roles/academic/student/delete/<str:first_name>_<str:middle_name>_<str:last_name>_<str:sex>'_<str:darasa>,
+    path('teacher/roles/academic/student/delete/<str:first_name>_<str:middle_name>_<str:last_name>_<str:sex>_<str:darasa>',
          teacher_roles_academic_students_delete, name='Delete student'),
 
 
