@@ -1,6 +1,5 @@
 import numpy as np
 import random
-import cv2
 
 def get_table_data(qu):
     '''Changing data of the data base into matrix table'''
