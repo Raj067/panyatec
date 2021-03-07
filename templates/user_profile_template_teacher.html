@@ -1,0 +1,51 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+{% block css_files %}<link rel="stylesheet" href="/static/css/user_profile_template_teacher.css">{% endblock %}
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <div class="card hovercard">
+                    <div class="cardheader">
+                    </div>
+                    <div class="avatar">
+                        <img alt="my image" src="{{ my_image }}">
+                    </div>
+                    <div class="info">
+                        <div class="title">
+                            <a target="_blank">{{ my_name }}</a>
+                        </div>
+                        {% if my_bio != None %}
+                            <div class="desc">{{ my_bio }}</div>
+                        {% endif %}
+                        <div class="desc">{{ phone_number }}</div>
+                        <div class="desc">{{ my_email }}</div>
+                        {% if my_key %}
+                            <div class="desc">key: {{ my_key }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="bottom">
+                        <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm" rel="publisher"
+                           href="{{ linkedin }}">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <a class="btn btn-primary btn-sm" rel="publisher"
+                           href="{{ facebook }}">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a class="btn btn-warning btn-sm" rel="publisher" href="{{ instagram }}">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

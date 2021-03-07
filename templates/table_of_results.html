@@ -1,0 +1,40 @@
+
+{% if ind %}
+    <center><h4>{{ darasa|title }}<div>&nbsp;</div>Table of results without grades</h4></center>
+    <div class="overflow-auto">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    {% for i in data_labels %}
+                    <th scope="col">{{ i }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data_content %}
+                     <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                         {% for m in i %}
+                            <td>{{ m }}</td>
+                         {% endfor %}
+                     </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+   {% if darasa != None %}
+        <div class="alert alert-primary" role="alert">
+            <h5>Recently there is nothing to preview for {{ darasa }}
+                make sure teachers have submitted the results for this
+                class and grades in general setup have been set.
+            </h5>
+        </div>
+   {% endif %}
+{% endif %}
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+
+

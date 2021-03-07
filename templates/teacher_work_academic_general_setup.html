@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css_files %}<link rel="stylesheet" href="/static/css/teacher_homepage.css">{% endblock %}
+{% block head_title %}General Setup{% endblock %}
+{% block main_body %}
+{% include 'teacher_header.html' %}
+{% include 'teacher_logo.html' %}
+
+{% if product_type != None %}
+
+<center><h3>General Setup</h3></center>
+
+{% if data_list != None %}
+    <div class="container">
+        <center><h4>Current Status</h4></center>
+        {% for a,b,c,d,e,f,g,h,i,j,k,l,m in data_list %}
+        <ul class="list-group list-group-horizontal-xxl">
+          <li class="list-group-item">Name of the examination: {{ a }}</li>
+        </ul>
+        <ul>Grades</ul>
+        <ul class="list-group list-group-horizontal-sm">
+            <li class="list-group-item">A = {{ b }}</li>
+            <li class="list-group-item">B = {{ c }}</li>
+            <li class="list-group-item">C = {{ d }}</li>
+            <li class="list-group-item">D = {{ e }}</li>
+            {% if product_type == 'a' %}
+            <li class="list-group-item">E = {{ f }}</li>
+            <li class="list-group-item">S = {{ g }}</li>
+            {% endif %}
+            <li class="list-group-item">F = {{ h }}</li>
+        </ul>
+        <ul>Division Points</ul>
+        <ul class="list-group list-group-horizontal-sm">
+            <li class="list-group-item">Division 1 = {{ i }}</li>
+            <li class="list-group-item">Division 2 = {{ j }}</li>
+            <li class="list-group-item">Division 3 = {{ k }}</li>
+            <li class="list-group-item">Division 4 = {{ l }}</li>
+            <li class="list-group-item">Division 0 = {{ m }}</li>
+        </ul>
+
+        {% endfor %}
+    </div>
+{% endif %}
+
+<center><h4>Update the setup</h4></center>
+<div class="container">
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                {{ form.name_of_the_examination|as_crispy_field }}
+            </div>
+            <h4>Grades</h4>
+            <h5>Select grade's lower limit</h5>
+            <div class="row g-2">
+                    <div class="col-md-4">
+                        {{ form.A|as_crispy_field }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.B|as_crispy_field }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.C|as_crispy_field }}
+                    </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-md-4">
+                    {{ form.D|as_crispy_field }}
+                </div>
+            {% if product_type == 'a' %}
+                 <div class="col-md-4">
+                    {{ form.E|as_crispy_field }}
+                </div>
+                <div class="col-md-4">
+                    {{ form.S|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row g-2">
+                {% endif %}
+                <div class="col-md-4">
+                    {{ form.F|as_crispy_field }}
+                </div>
+            </div>
+
+            <h4>Divisions</h4>
+            <h5>Select division's lower limit</h5>
+            <div class="row g-2">
+                <div class="col-md-4">
+                    {{ form.division_1|as_crispy_field }}
+                </div>
+                <div class="col-md-4">
+                     {{ form.division_2|as_crispy_field }}
+                </div>
+                <div class="col-md-4">
+                     {{ form.division_3|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-md-4">
+                     {{ form.division_4|as_crispy_field }}
+                </div>
+                <div class="col-md-4">
+                     {{ form.division_0|as_crispy_field }}
+                </div>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Update Changes">
+        </form>
+    </div>
+</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+
+{% if product_type != 'a' %}
+<div class="container">
+    Recently Grading system from necta for ordinary level.
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Marks</th>
+                <th scope="col">Points</th>
+                <th scope="col">Grade's lower limit</th>
+            </tr>
+          </thead>
+                    <tbody>
+            <tr>
+                  <th scope="row">1</th>
+                  <td>A</td>
+                  <td>75 - 100</td>
+                  <td>1</td>
+                  <td>75</td>
+            </tr>
+            <tr>
+                  <th scope="row">2</th>
+                  <td>B</td>
+                  <td>65 - 74</td>
+                  <td>2</td>
+                  <td>65</td>
+            </tr>
+            <tr>
+                  <th scope="row">3</th>
+                  <td>C</td>
+                  <td>45 - 64</td>
+                  <td>3</td>
+                  <td>45</td>
+            </tr>
+            <tr>
+                  <th scope="row">4</th>
+                  <td>D</td>
+                  <td>30 - 44</td>
+                  <td>4</td>
+                  <td>30</td>
+            </tr>
+            <tr>
+                  <th scope="row">5</th>
+                  <td>F</td>
+                  <td>0 - 29</td>
+                  <td>5</td>
+                  <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+{% else %}
+<div class="container">
+    Recently Grading system from necta for advanced level.
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Marks</th>
+                <th scope="col">Points</th>
+                <th scope="col">Grade's lower limit</th>
+            </tr>
+          </thead>
+                    <tbody>
+            <tr>
+                  <th scope="row">1</th>
+                  <td>A</td>
+                  <td>80 - 100</td>
+                  <td>1</td>
+                  <td>80</td>
+            </tr>
+            <tr>
+                  <th scope="row">2</th>
+                  <td>B</td>
+                  <td>70 - 79</td>
+                  <td>2</td>
+                  <td>70</td>
+            </tr>
+            <tr>
+                  <th scope="row">3</th>
+                  <td>C</td>
+                  <td>60 - 69</td>
+                  <td>3</td>
+                  <td>60</td>
+            </tr>
+            <tr>
+                  <th scope="row">4</th>
+                  <td>D</td>
+                  <td>50 - 59</td>
+                  <td>4</td>
+                  <td>50</td>
+            </tr>
+            <tr>
+                  <th scope="row">5</th>
+                  <td>E</td>
+                  <td>40 - 49</td>
+                  <td>5</td>
+                  <td>40</td>
+            </tr>
+            <tr>
+                  <th scope="row">5</th>
+                  <td>S</td>
+                  <td>35 - 39</td>
+                  <td>6</td>
+                  <td>0</td>
+            </tr>
+            <tr>
+                  <th scope="row">5</th>
+                  <td>F</td>
+                  <td>0 - 34</td>
+                  <td>7</td>
+                  <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+<div class="container">
+    Recently division system from necta for ordinary and advanced level.
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Division</th>
+                <th scope="col">o level</th>
+                <th scope="col">a level</th>
+                <th scope="col">o level lower limit</th>
+                <th scope="col">a level lower limit</th>
+            </tr>
+          </thead>
+                    <tbody>
+            <tr>
+                  <th scope="row">1</th>
+                  <td>i</td>
+                  <td>7 - 17</td>
+                  <td>3 - 9</td>
+                  <td>17</td>
+                  <td>9</td>
+            </tr>
+            <tr>
+                  <th scope="row">2</th>
+                  <td>ii</td>
+                  <td>18 - 21</td>
+                  <td>10 - 12</td>
+                  <td>21</td>
+                  <td>12</td>
+            </tr>
+            <tr>
+                  <th scope="row">3</th>
+                  <td>iii</td>
+                  <td>22 - 25</td>
+                  <td>13 - 17</td>
+                  <td>25</td>
+                  <td>17</td>
+            </tr>
+            <tr>
+                  <th scope="row">4</th>
+                  <td>iv</td>
+                  <td>26 - 33</td>
+                  <td>18 - 19</td>
+                  <td>33</td>
+                  <td>19</td>
+            </tr>
+            <tr>
+                  <th scope="row">5</th>
+                  <td>0</td>
+                  <td>34 - 35</td>
+                  <td>20 - 21</td>
+                  <td>35</td>
+                  <td>21</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% else %}
+<div class="container">
+    <div class="alert alert-primary" role="alert">
+        <h5>Recently there is nothing to show in this page</h5>
+    </div>
+</div>
+{% endif %}
+
+{% include 'footer.html' %}
+{% endblock %}

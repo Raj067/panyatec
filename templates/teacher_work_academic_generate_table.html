@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css_files %}<link rel="stylesheet" href="/static/css/teacher_homepage.css">{% endblock %}
+{% block head_title %}Generate Table{% endblock %}
+{% block main_body %}
+{% include 'teacher_header.html' %}
+{% include 'teacher_logo.html' %}
+
+
+
+<div class="container">
+    <center>
+        <h3>Submited Forms</h3>
+    </center>
+    <div class="container">
+        <div>
+            List of teachers who have submitted the results
+        </div>
+        {% if required_index == 1 %}
+            <div class="overflow-auto">
+                <div class="overflow-auto">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Class</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i, j, k, l in required_form %}
+                                 <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ i }}</td>
+                                    <td>{{ k }}</td>
+                                    <td>{{ j }}</td>
+                                    <td>{{ l }}</td>
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h5>
+                    <b>Note*</b>
+                    <ul class="list-group list-group-horizontal-xxl">
+                        <li class="list-group-item">
+                            Preview the results before submitting them to
+                            administrator
+                        </li>
+                    </ul>
+                </h5>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            {% if product_type == 'a' %}
+                                {{ class_form.advanced_level|as_crispy_field  }}
+                            {% elif product_type == 'o' %}
+                                {{ class_form.ordinary_level|as_crispy_field }}
+                            {% elif product_type == 'p' %}
+                                {{ class_form.primary_level|as_crispy_field }}
+                            {% elif product_type == 'k' %}
+                                {{ class_form.k_level|as_crispy_field }}
+                            {% else %}
+                                <b>Contant your administrator to activate this entry*</b>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <div>&nbsp;</div>
+                            <input type="submit" value="Preview" class="btn btn-primary btn-block">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        {% include 'table_of_results.html' %}
+        {% include 'grade_results.html' %}
+        {% else %}
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>
+            <div class="alert alert-info" role="alert">
+                Recently there is no form submitted
+            </div>
+        </div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        {% endif %}
+    </div>
+</div>
+
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+{% include 'footer.html' %}
+{% endblock %}

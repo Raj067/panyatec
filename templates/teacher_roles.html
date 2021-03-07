@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css_files %}<link rel="stylesheet" href="/static/css/teacher_homepage.css">{% endblock %}
+{% block head_title %}My Roles{% endblock %}
+{% block main_body %}
+{% include 'teacher_header.html' %}
+
+{% if name_school != None %}
+<div class="container">
+    <div class="container">
+        <div class="row g-2">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                    <center>
+                        <h4>
+                            {% if image != None %}
+                                <img src="{{ image }}" width="100" height="100" alt="logo">
+                                {% endif %}
+                        </h4>
+                        <h4>
+                            {% if name_school != None %}
+                            <b>{{ name_school }}</b>
+                            {% endif %}
+                        </h4>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+{% endif %}
+
+
+<!---- AS ACADEMIC ---->
+{% if req_role == 1 %}
+    {% include "teacher_roles_academic.html" %}
+<!----- AS SECRETARY ----->
+{% elif req_role == 3 %}
+    {% include "teacher_roles_secretary.html" %}
+<!----- AS TEACHER ------>
+{% elif req_role == 2 %}
+    {% include "teacher_roles_teacher.html" %}
+<!-----For new user ---->
+{% else %}
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+    <div class="container">
+        <ul class="shadow-lg p-3 mb-5 bg-white rounded">
+            <li class="list-group-item">
+            No roles to show, please enter the valid key from the administrator to
+            start using our product or call us for assistance: <b>0625789316</b>
+            </li>
+        </ul>
+    </div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+{% endif %}
+
+
+{% include 'footer.html' %}
+{% endblock %}

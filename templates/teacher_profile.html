@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css_files %}<link rel="stylesheet" href="/static/css/teacher_homepage.css">{% endblock %}
+{% block head_title %}My Profile{% endblock %}
+{% block main_body %}
+{% include 'teacher_header.html' %}
+
+{% include 'teacher_logo.html' %}
+
+{% if data_key != None %}
+
+
+
+<div>
+    {% if obj %}
+    <div class="container">
+        <div>
+            <h3><center>My Profile</center></h3>
+        </div>
+
+        <div class="container">
+            {% if txt != 0 %}
+                <div class="alert alert-primary" role="alert">
+                        {{ txt }}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            {% include 'user_profile_template_teacher.html' %}
+        </div>
+    </div>
+    {% endif %}
+
+
+    <div>
+        <center><h3>Update your profile</h3></center>
+    </div>
+
+    <div class="container">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-2">
+                <div class="col-md-4">
+                    {{ form.first_name|as_crispy_field }}
+                </div>
+                <div class="col-md-4">
+                    {{ form.middle_name|as_crispy_field }}
+                </div>
+                <div class="col-md-4">
+                    {{ form.last_name|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-md-6">
+                    {{ form.my_email_address|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                    {{ form.phone_number|as_crispy_field }}
+                </div>
+            </div>
+                {{ form.bio|as_crispy_field }}
+            {{ form.upload_image|as_crispy_field }}
+            {{ form.your_facebook_profile|as_crispy_field }}
+            {{ form.your_instagram_profile|as_crispy_field }}
+            {{ form.your_twitter_profile|as_crispy_field }}
+            {{ form.your_linkedin_profile|as_crispy_field }}
+
+            <div class="row g-2">
+                <div class="col-md-12">
+                    <input type="submit" value="Update" class="btn btn-primary btn-block">
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% else %}
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+    <div class="container">
+        <ul class="shadow-lg p-3 mb-5 bg-white rounded">
+            <li class="list-group-item">
+            No profile to show, please enter the valid key from the administrator to
+            start using our product or call us for assistance: <b>0625789316</b>
+            </li>
+        </ul>
+    </div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+{% endif %}
+
+{% include 'footer.html' %}
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block head_title %}Administrator homepage{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="/static/css/administrator_homepage.css">
+{% endblock %}
+{% block main_body %}
+
+{% include 'administrator_header.html' %}
+<div>
+    <center>
+        <h4>
+            {% if image != None %}
+            <img src="{{ image }}" width="100" height="100" alt="logo">
+            {% endif %}
+        </h4>
+        <h4>
+            {% if nschool != None %}
+            <b>{{ nschool }}</b>
+            <div class="container"><hr></div>
+            {% endif %}
+        </h4>
+    </center>
+</div>
+
+<div class="container">
+    {% if required_index == 1%}
+        <center><h4>List of teacher who have recently submited their
+                    results to academic
+        </h4></center>
+        <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i, j, k, l in required_form %}
+                     <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ i }}</td>
+                        <td>{{ k }}</td>
+                        <td>{{ j }}</td>
+                        <td>{{ l }}</td>
+                     </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        <center>
+        <h4>
+            List of files downloaded by secretary
+        </h4>
+        </center>
+        <div class="alert alert-primary" role="alert">
+            <h5><center>Recently there is no any file downloaded</center></h5>
+        </div>
+
+    {% else %}
+        <div class="alert alert-primary" role="alert">
+        <h5>Recently there is no information to show on this page</h5>
+        </div>
+    {% endif %}
+</div>
+
+
+
+{% include 'footer.html' %}
+{% endblock %}

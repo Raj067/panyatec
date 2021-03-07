@@ -1,0 +1,207 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+<h3><center>Quick Setup</center></h3>
+
+<div class="container">
+    <h4>Your Recent Status </h4>
+        <ul class="list-group list-group-horizontal-xxl">
+            <li class="list-group-item">
+                <h5>Name of the subject: <b>{{ subject_name }}</b></h5>
+                <h5>Class: <b>{{ class_name }}</b></h5>
+            </li>
+        </ul>
+</div>
+
+
+<form method="post">
+    {% csrf_token %}
+    <div class="container">
+        <h4>Update Your Status </h4>
+            {% if product_type == 'a' %}
+                {{ class_form.advanced_level|as_crispy_field  }}
+            {% elif product_type == 'o' %}
+                {{ class_form.ordinary_level|as_crispy_field }}
+            {% elif product_type == 'p' %}
+                {{ class_form.primary_level|as_crispy_field }}
+            {% elif product_type == 'k' %}
+                {{ class_form.k_level|as_crispy_field }}
+            {% else %}
+                {{ class_form.contact_your_administrator_to_setup_the_classes_of_your_school|as_crispy_field }}
+            {% endif %}
+    </div>
+    <div class="container">
+        <input class="btn btn-primary" value="Update" type="submit">
+    </div>
+</form>
+<div>&nbsp;</div>
+<div class="container">
+    <b>Select your subject*</b>
+    <ul class="list-group list-group-horizontal-xxl">
+        <li class="list-group-item">
+            {% for i in req_list %}
+                <div class="row">
+                    <div class="col">
+                        <ul>{{ i }}</ul>
+                    </div>
+
+                    <div class="col">
+                        <center>
+                            <a class="button" href="/teacher/roles/teacher/confirm/{{ i }}" >select</a>
+                        </center>
+                    </div>
+                </div>
+            {% endfor %}
+        </li>
+    </ul>
+</div>
+
+
+<div class="container">
+    <!--for students with practical -->
+    {% if product_type == 'a' or product_type == 'o' %}
+        <div>
+            {% if formula_display == None %}
+            <b>Note*</b>
+            <h5>
+                <ul class="list-group list-group-horizontal-xxl">
+                    <li class="list-group-item">
+                        For students with practical select the appropriate
+                        formula to be used in combining the theory and practical
+                        subjects.
+                    </li>
+                </ul>
+            </h5>
+            {% else %}
+            <h5>
+                <ul class="list-group list-group-horizontal-xxl">
+                    <li class="list-group-item">
+                        The formula selected is
+                        <b>{{ formula_display }}</b>
+                    </li>
+                </ul>
+            </h5>
+            {% endif %}
+        <a href="/teacher/roles/formula/" type="button" class="btn btn-primary">Select Formula</a>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+    </div>
+    {% endif %}
+</div>
+
+
+{% if product_type == 'o' %}
+    <div class="container">
+    <b>Note*</b>
+    <ul class="list-group list-group-horizontal-xxl">
+        <li class="list-group-item">
+            For classes with no practical and theories paper only fill p1 column
+            for paper 1,
+            otherwise fill all the column.
+        </li>
+    </ul>
+</div>
+{% endif %}
+{% if product_type == 'a' %}
+    <div class="container">
+    <b>Note*</b>
+    <ul class="list-group list-group-horizontal-xxl">
+        <li class="list-group-item">
+            For classes with no practical and theories paper only fill p1 column
+            for paper 1 and p2 column for paper 2 if present,
+            otherwise fill all the column.
+        </li>
+    </ul>
+</div>
+{% endif %}
+
+<!-- showing details only when details updated -->
+
+{% if subject_name != None and class_name != None %}
+    <div class="container">
+        {% if tea_form != None %}
+            <center><h4>List of the students</h4></center>
+            <form method="post" action="/teacher/roles/">{% csrf_token %}
+                <div class="overflow-auto">
+                    <table class="table table-bordered">
+                          <thead>
+                             <tr>
+                                <th scope="col">#</th>
+                                 {% if tea_form == 'name' %}<!--Check name or number -->
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Middle Name</th>
+                                    <th scope="col">Last Name</th>
+                                 {% elif tea_form == 'number' %}
+                                    <th scope="col">Number</th>
+                                 {% endif %}
+                                 <th scope="col">Sex</th>
+                                 <!--Check for type -->
+                                 {% if product_type == 'a' %}
+                                    <th scope="col">P 1</th>
+                                    <th scope="col">P 2</th>
+                                    <th scope="col">P 3</th>
+                                 {% elif product_type == 'o' %}
+                                    <th scope="col">P 1</th>
+                                    <th scope="col">P 2</th>
+                                 {% elif product_type == 'p' %}
+                                    <th scope="col">Marks</th>
+                                 {% elif product_type == 'k' %}
+                                    <th scope="col">Marks</th>
+                                 {% endif %}
+
+                             </tr>
+                          </thead>
+                          <tbody>
+
+                                <div class="container">
+                                    {% for i, j, k, l, m, n in data_list1 %}
+                                        {% if n == class_name %} <!--Checking the class -->
+                                            <tr>
+                                                <th scope="row">{{ forloop.counter }}</th>
+                                                {% if tea_form == 'name' %}<!--Check for number or name -->
+                                                    <td>{{ i }}</td>
+                                                    <td>{{ j }}</td>
+                                                    <td>{{ k }}</td>
+                                                {% elif tea_form == 'number' %}
+                                                    <td>{{ m }}</td>
+                                                {% endif %}
+                                                <td>{{ l }}</td>
+                                                <!--Check for kind of students ie prac and theories-->
+                                                                         <!--Check for type -->
+                                                 {% if product_type == 'a' %}
+                                                    <td>{{ marks_form.paper_1 }}</td>
+                                                    <td>{{ marks_form.paper_2 }}</td>
+                                                    <td>{{ marks_form.paper_3 }}</td>
+                                                 {% elif product_type == 'o' %}
+                                                    <td>{{ marks_form.paper_1 }}</td>
+                                                    <td>{{ marks_form.paper_2 }}</td>
+                                                 {% elif product_type == 'p' %}
+                                                    <td>{{ marks_form.marks }}</td>
+                                                 {% elif product_type == 'k' %}
+                                                    <td>{{ marks_form.marks }}</td>
+                                                 {% endif %}
+
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                          </tbody>
+                    </table>
+                </div>
+                {% include 'teacher_roles_teacher_popup.html' %}
+            </form>
+        {% else %}
+        <div class="container">
+        <center>
+            <h5>Recently you are not authorized by academic to access this page.</h5>
+        </center>
+        </div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        {% endif %}
+    </div>
+{% endif %}
+

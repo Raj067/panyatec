@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head_title %}Teacher homepage{% endblock %}
+{% block css_files %}<link rel="stylesheet" href="/static/css/teacher_homepage.css">{% endblock %}
+{% block main_body %}
+{% include 'teacher_header.html' %}
+
+
+<!-- =========================If not entered the key======================-->
+
+
+{% if req_key == 0 %}
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div class="container">
+    <ul class="shadow-lg p-3 mb-5 bg-white rounded">
+        <li class="list-group-item">
+            <h3>Enter the required key from administrator to start using our application</h3>
+            <h5><b>
+                {% if txt != 0 %}
+                    <div class="alert alert-danger" role="alert">
+                    {{ txt }}
+                    </div>
+                {% endif %}
+            </b></h5>
+            <form method="post">{% csrf_token %}
+                {{ form|crispy}}
+                <input class="btn btn-primary " type="submit" value="Submit">
+            </form>
+        </li>
+    </ul>
+</div>
+{% endif %}
+
+{% if name_school != None %}
+<div class="container">
+    <div class="container">
+        <div class="row g-2">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                    <center>
+                        <h4>
+                            {% if image != None %}
+                                <img src="{{ image }}" width="100" height="100" alt="logo">
+                                {% endif %}
+                        </h4>
+                        <h4>
+                            {% if name_school != None %}
+                            <b>{{ name_school }}</b>
+                            {% endif %}
+                        </h4>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+{% endif %}
+
+
+{% if req_key == 1 %}<!--========= only registered with key members =================== -->
+    <div class="container">
+        <div class="container">
+            <div class="container">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                            <center>
+                                <h4>
+                                    {% if image != None %}
+                                        <img src="{{ image }}" width="100" height="100" alt="logo">
+                                        {% endif %}
+                                </h4>
+                                {% for data in info_school %}
+                                    {% if data != None %}
+                                        {% if forloop.counter == 1 %}
+                                <center><h4><b>{{ data }}</b></h4></center>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h5>hellow, <b>{{ request.user }}</b></h5>
+                        <hr>
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                {% elif forloop.counter == 2 %}
+                    <ul>Contacts: <b>{{ data }}</b></ul>
+                {% elif forloop.counter == 3 %}
+                    <ul>Email: <b>{{ data }}</b></ul>
+                {% elif forloop.counter == 4 %}
+                    <ul>Website: <b>{{ data }}</b></ul>
+                {% elif forloop.counter == 5 %}
+                    <ul>Vision: <b>{{ data }}</b></ul>
+                {% elif forloop.counter == 6 %}
+                    <ul>Motto: <b>{{ data }}</b></ul>
+                {% elif forloop.counter == 7 %}
+                    <ul>Description: <b>{{ data }}</b></ul>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if req_role == 1 %}
+            <ul>My role: <b>Academic</b></ul>
+        {% elif req_role == 2 %}
+            <ul>My role: <b>Teacher</b></ul>
+        {% else %}
+            <ul>My role: <b>Secretary</b></ul>
+        {% endif %}
+        <ul>Status: <b>Active</b></ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="container">
+            <center><h3>Notifications</h3></center>
+            <hr>
+            {% for i,j, k in my_data %}
+                <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                    <ul><b>{{ i }}</b></ul>
+                    <ul>{{ k }}</ul>
+                    <ul>{{ j }}</ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endif %}
+{% include 'footer.html' %}
+{% endblock %}
+

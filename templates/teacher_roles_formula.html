@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css_files %}<link rel="stylesheet" href="/static/css/teacher_homepage.css">{% endblock %}
+{% block head_title %}Select Formula{% endblock %}
+{% block main_body %}
+{% include 'teacher_header.html' %}
+{% include 'teacher_logo.html' %}
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+<div class="container">
+    <div class="container">
+        <div class="container">
+    <center>
+        <h3>
+            Select the appropriate formula to be used
+        </h3>
+    </center>
+    <div>
+        <center><h4>Formula 1</h4></center>
+        <h5>
+            For form four subjects with practical paper
+            formula 1 can be calculated as follow.
+            <ul><b>
+                <div>&nbsp;</div>
+                p = ((p1 + p2) / 150) x 100%
+                <div>&nbsp;</div>
+            </b></ul>
+            for example: if student x has 75% in paper 1 and 40% in paper 2
+            then his final marks using this formula will be as follow,
+            <ul><b>
+                <div>&nbsp;</div>
+                p = ((75 + 40) / 150) x 100%
+                <div>&nbsp;</div>
+            </b></ul>
+            <ul><b>
+                p = 76.7%
+                <div>&nbsp;</div>
+            </b></ul>
+        </h5>
+        <h5>
+            For form six subjects with practical paper particularly
+            biology physics chemistry and subject with three papers
+            formula 1 can be calculated as follow.
+            <ul><b>
+                <div>&nbsp;</div>
+                p = ((p1 + p2 + p3) / 250) x 100%
+                <div>&nbsp;</div>
+            </b></ul>
+            for example: if student x has 75% in paper 1, 80% in
+            paper 2 and 40% in paper 3
+            then his final marks using this formula will be as follow,
+            <ul><b>
+                <div>&nbsp;</div>
+                p = ((75 + 80 + 40) / 250) x 100%
+                <div>&nbsp;</div>
+            </b></ul>
+            <ul><b>
+                p = 78.0%
+                <div>&nbsp;</div>
+            </b></ul>
+        </h5>
+    </div>
+    <div>
+        <center><h4>Formula 2</h4></center>
+        <h5>
+            For form four subjects with practical paper
+            formula 2 can be calculated as follow.
+            <ul><b>
+                <div>&nbsp;</div>
+                p = (p1 + p2 x 2) / 2
+                <div>&nbsp;</div>
+            </b></ul>
+            for example: if student x has 75% in paper 1 and 40% in paper 2
+            then his final marks using this formula will be as follow,
+            <ul><b>
+                <div>&nbsp;</div>
+                p = (75 + 40 x 2) / 2
+                <div>&nbsp;</div>
+            </b></ul>
+            <ul><b>
+                p = 77.5%
+                <div>&nbsp;</div>
+            </b></ul>
+        </h5>
+        <h5>
+            For form six subjects with practical paper particularly
+            biology physics chemistry and subject with three papers
+            formula 2 can be calculated as follow.
+            <ul><b>
+                <div>&nbsp;</div>
+                p = (p1 + p2 + p3 x 2) / 3
+                <div>&nbsp;</div>
+            </b></ul>
+            for example: if student x has 75% in paper 1, 80% in
+            paper 2 and 40% in paper 3
+            then his final marks using this formula will be as follow,
+            <ul><b>
+                <div>&nbsp;</div>
+                p = (75 + 80 + 40 x 2) / 3
+                <div>&nbsp;</div>
+            </b></ul>
+            <ul><b>
+                p = 78.3%
+                <div>&nbsp;</div>
+            </b></ul>
+        </h5>
+    </div>
+    <div>
+        <center><h4>Formula 3</h4></center>
+        <h5>
+            For form six subjects with two paper like Language and
+            Geography without practical the formula used could be
+            as follow.
+
+            <ul><b>
+                <div>&nbsp;</div>
+                p = (p1 + p2 ) / 2
+                <div>&nbsp;</div>
+            </b></ul>
+            for example: if student x has 75% in paper 1 and 80% in
+            paper 2
+            then his final marks using this formula will be as follow,
+            <ul><b>
+                <div>&nbsp;</div>
+                p = (75 + 80) / 2
+                <div>&nbsp;</div>
+            </b></ul>
+            <ul><b>
+                p = 77.5%
+                <div>&nbsp;</div>
+            </b></ul>
+        </h5>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="container">
+            <ul class="list-group list-group-horizontal-xxl">
+                <li class="list-group-item">
+                    <div class="container">
+                        {{ prac_form.select_the_formula|as_crispy_field }}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <a type="button" class="btn btn-danger" href="/teacher/roles/">Cancel</a>
+        <input type="submit" value="Apply" class="btn btn-primary">
+    </form>
+</div>
+    </div>
+</div>
+
+
+
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+{% include 'footer.html' %}
+{% endblock %}

@@ -1,0 +1,67 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <center><h3>General Setup</h3></center>
+        <ul class="list-group list-group-horizontal-xxl">
+            <li class="list-group-item">
+                <h5>
+                    Make sure you have setup the values correctly by
+                    selecting the default value which follow necta values for divisions
+                    divisions points and grades or change them as your requirements.
+                </h5>
+            </li>
+        </ul>
+    <div>
+           <a type="button" class="btn btn-primary" href="/teacher/work/academic/general/setup/">General Setup</a>
+    </div>
+
+</div>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+<div class="container">
+    <center><h4>Allow teachers to start filling marks on the form</h4></center>
+    {% if enabled != None %}
+    <h5>Current Status</h5>
+    {% endif %}
+
+    <ul class="list-group list-group-horizontal-xxl">
+      <li class="list-group-item">
+        {% if enabled == 'name' %}
+            Table with name of the students allowed
+        {% elif enabled == 'number' %}
+            Table with number of the students allowed
+        {% else %}
+            Teacher are not authorized to access table of the students
+        {% endif %}
+      </li>
+    </ul>
+
+    <div>&nbsp;</div>
+    <h5>&nbsp; Update the status</h5>
+    <form method="post" action="">{% csrf_token %}
+            <ul class="list-group list-group-horizontal-xxl">
+                <li class="list-group-item">
+                    {{ type_btn.type_of_table_to_be_filled_by_teacher|as_crispy_field }}
+                </li>
+            </ul>
+        <input class="btn btn-primary" type="submit" value="Update">
+    </form>
+</div>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+<div class="container">
+    <center><h4>Received data from teachers</h4></center>
+        <ul class="list-group list-group-horizontal-xxl">
+            <li class="list-group-item">
+                Click the button below to check any marks form
+                submited by teachers.
+            </li>
+        </ul>
+    <div>
+           <a type="button" class="btn btn-primary" href="/teacher/work/academic/generate/table/">Submited Form</a>
+    </div>
+</div>

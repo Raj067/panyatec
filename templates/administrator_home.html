@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block head_title %}Administrator homepage{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="/static/css/administrator_homepage.css">
+{% endblock %}
+{% block main_body %}
+{% include 'administrator_header.html' %}
+
+{% if nschool != None %}
+<div class="container">
+    <div class="container">
+        <div class="row g-2">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                    <center>
+                        <h4>
+                            {% if image != None %}
+                                <img src="{{ image }}" width="100" height="100" alt="logo">
+                                {% endif %}
+                        </h4>
+                        <h4>
+                            {% if nschool != None %}
+                            <b>{{ nschool }}</b>
+                            {% endif %}
+                        </h4>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+{% endif %}
+
+
+<div class="container">
+    <div class="row g-2">
+        <div class="col-md-9">
+
+        </div>
+        <div class="col-md-3">
+            <h5>hellow, <b>{{ username }}</b></h5>
+        </div>
+    </div>
+    <hr>
+</div>
+
+<div class="container">
+    {% if txt != 0 %}
+        <div class="alert alert-primary" role="alert">
+        {{ txt }}
+        </div>
+    {% endif %}
+
+    <form method="post">{% csrf_token %}
+        {{ form10.send_notifications_to_teachers|as_crispy_field }}
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Send</button>
+            </div>
+            <div class="col">
+                <a class="btn btn-success btn-circle text-uppercase" href="/administrator/notifications/"><span class="glyphicon glyphicon-list"></span> list</a>
+        </div>
+        </div>
+    </form>
+
+</div>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+
+<div class="container">
+    <div class="row g-2">
+        {% if subjects != None %}
+        <center><h3>General Informations</h3></center>
+            <div class="col-md-6">
+                <h4><center>Subject Registered</center></h4>
+                <ul class="list-group list-group-horizontal-xxl">
+                    <li class="list-group-item">
+                        {% for i in subjects %}
+                            <ul><b>{{ i }}</b></ul>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+        {% if darasa != None %}
+            <div class="col-md-6">
+                <h4><center>Classes Registered</center></h4>
+                <ul class="list-group list-group-horizontal-xxl">
+                    <li class="list-group-item">
+                        {% for i in darasa %}
+                            <ul><b>{{ i }}</b></ul>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+{% if data_list != None %}<!-- check if there is students -->
+    <div class="container">
+    {% for n1  in darasa %}
+        <center><h4>List of {{ n1 }}  students registered</h4></center>
+        <div class="overflow-auto">
+            <table class="table table-bordered">
+              <thead>
+                 <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Middle Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Sex</th>
+                    <th scope="col">Number</th>
+                 </tr>
+              </thead>
+              <tbody>
+                {% for i, j, k, l, m, n   in data_list %}
+                    {% if n1 == n %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ i }}</td>
+                            <td>{{ j }}</td>
+                            <td>{{ k }}</td>
+                            <td>{{ m }}</td>
+                            <td>{{ l }}</td>
+                         </tr>
+                    {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+{% include 'footer.html' %}
+{% endblock %}

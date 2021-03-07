@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css_files %}<link rel="stylesheet" href="/static/css/teacher_homepage.css">{% endblock %}
+{% block head_title %}Delete Student{% endblock %}
+{% block main_body %}
+{% include 'teacher_header.html' %}
+{% include 'teacher_logo.html' %}
+
+<div class="container">
+    <ul class="shadow-lg p-3 mb-5 bg-white rounded">
+        <li class="list-group-item">
+            <form action="" method="post">{% csrf_token %}
+                <p>Are you sure you want to delete <b>{{ sub }}</b> from the database</p>
+                <a type="button" class="btn btn-danger" href="/teacher/roles">cancel</a>
+                <input type="submit" value="confirm" class="btn btn-primary">
+            </form>
+        </li>
+    </ul>
+
+</div>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+{% include 'footer.html' %}
+{% endblock %}

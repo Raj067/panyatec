@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css_files %}<link rel="stylesheet" href="/static/css/teacher_homepage.css">{% endblock %}
+{% block head_title %}My Roles{% endblock %}
+{% block main_body %}
+{% include 'teacher_header.html' %}
+{% include 'teacher_logo.html' %}
+
+<div class="container">
+    <ul class="list-group list-group-horizontal-xxl">
+        <li class="list-group-item">
+
+              <div>&nbsp;</div>
+            <center>List of the subjects in the database</center>
+              <div>&nbsp;</div>
+            <div class="container">
+            <div class="container">
+                {% for i in req_list %}
+                <div class="row">
+                    <div class="col">
+                        <ul><b>{{ i }}</b></ul>
+                    </div>
+
+                    <div class="col">
+                        <center>
+                            <a class="button" href="/teacher/roles/academic/subject/delete/{{ i }}" >delete</a>
+                        </center>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+        </li>
+    </ul>
+</div>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+<div class="container">
+    <center>Add subject in the database</center>
+    <form method="post">{% csrf_token %}
+        {{ form.name_of_the_subject|as_crispy_field }}
+        <input type="submit" value="Add" class="btn btn-primary">
+    </form>
+</div>
+
+
+{% include 'footer.html' %}
+{% endblock %}

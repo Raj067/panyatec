@@ -1,0 +1,127 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <center><h3>Quick setup</h3></center>
+        <ul class="list-group list-group-horizontal-xxl">
+            <li class="list-group-item">
+                <h5>Make sure you have added subjects in your database</h5>
+            </li>
+        </ul>
+    <a type="button" class="btn btn-primary" href="/teacher/roles/academic/subject/">Subjects</a>
+</div>
+
+<div>&nbsp;</div>
+
+<div class="container">
+        <center><h4>Add new student to the database</h4></center>
+
+        {% if txt1 != 0 %}
+            <div class="alert alert-primary" role="alert">
+            {{ txt1 }}
+            </div>
+        {% endif %}
+        <form method="post" action="">{% csrf_token %}
+            <div class="row g-2">
+                <div class="col-md-6">
+                    {{ first_form.first_name|as_crispy_field }}
+                </div>
+
+                <div class="col-md-6">
+                    {{ first_form.middle_name|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-md-6">
+                    {{ first_form.last_name|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                    {{ first_form.candidate_number|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-md-6">
+                    {{ first_form.sex|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                    {% if product_type == 'a' %}
+                        {{ class_form.advanced_level|as_crispy_field  }}
+                    {% elif product_type == 'o' %}
+                        {{ class_form.ordinary_level|as_crispy_field }}
+                    {% elif product_type == 'p' %}
+                        {{ class_form.primary_level|as_crispy_field }}
+                    {% elif product_type == 'k' %}
+                        {{ class_form.k_level|as_crispy_field }}
+                    {% else %}
+                        <b>Contant your administrator to activate this entry*</b>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-md-12">
+                    {{ first_form.darasa.as_hidden }}
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <input type="submit" value="Save" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+{% if data_list != 'None' %}<!-- check if there is students -->
+    <div class="container">
+    {% for n1  in darasa %}
+        <center><h4>List of {{ n1 }}  students in the database</h4></center>
+        <div class="overflow-auto">
+            <table class="table table-bordered">
+              <thead>
+                 <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Middle Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Sex</th>
+                    <th scope="col">Number</th>
+                     <!--<th scope="col">Darasa</th>-->
+                     <th scope="col">Remove</th>
+                 </tr>
+              </thead>
+              <tbody>
+              {% for i, j, k, l, m, n   in data_list1 %}
+                {% if n1 == n %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ i }}</td>
+                        <td>{{ j }}</td>
+                        <td>{{ k }}</td>
+                        <td>{{ l }}</td>
+                        <td>{{ m }}</td>
+                        <!--<td>{{ n }}</td>-->
+                        <td><a type="button" href="/teacher/roles/academic/student/delete/{{i}}_{{j}}_{{k}}_{{l}}">delete</a></td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+
+
+

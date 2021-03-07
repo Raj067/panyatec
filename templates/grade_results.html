@@ -1,0 +1,37 @@
+
+{% if ind %}
+    <center><h4>Table of results with grades</h4></center>
+    <div class="overflow-auto">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    {% for i in grade_label %}
+                    <th scope="col">{{ i }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in grade_data %}
+                     <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                         {% for m in i %}
+                            <td>{{ m }}</td>
+                         {% endfor %}
+                     </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>&nbsp;</div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ upload_form.internal_files.as_hidden }}
+        {% include 'grade_results_popup.html' %}
+    </form>
+{% endif %}
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+
