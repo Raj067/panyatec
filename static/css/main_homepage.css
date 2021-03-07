@@ -1,0 +1,42 @@
+#dt1 {
+  background-image: url('/static/images/21.jpg');
+  background-color: #cccccc; /* Used if the image is unavailable */
+  height: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#dt2 {
+  background-image: url('/static/images/22.png');
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color:white;
+}
+
+#op1 {
+background-color: #D9D9D9;
+}
+
+#op5,#op2,#op6,#op3
+{
+color:blue;
+}
+
+#op4 {
+padding-top:150px;
+color:green;
+}
+
+#dt5 {
+    color:blue;
+}
+#dt6 {
+    color:green;
+}
+
+
+
+

@@ -1,0 +1,22 @@
+#dat1 {
+margin-top:8%;
+margin-left: 10%;
+margin-right: 10%;
+}
+
+hr1 {
+
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+
+}
+
+#dt5 {
+    color:blue;
+}
+#dt6 {
+    color:green;
+}
