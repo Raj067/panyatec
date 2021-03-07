@@ -675,14 +675,14 @@ def teacher_roles_academic_subject_delete(request, value, *args, **kwargs):
     return render(request, 'teacher_roles_academic_subject_delete.html', dt)
 
 @authenticated_te
-def teacher_roles_academic_students_delete(request, first_name, middle_name, last_name, sex, *args, **kwargs):
+def teacher_roles_academic_students_delete(request, first_name, middle_name, last_name, sex, darasa, *args, **kwargs):
     # his own key so as to get the admin pk -- nm
     data_key = RequiredKey.objects.filter(id=request.user.id)
     # using admin pk
     req_role, req_pk = required_key([i.user_key for i in data_key][0])
     sub = Students.objects.filter(
         nm_id=req_pk, first_name__iexact=first_name,
-        middle_name=middle_name, last_name__iexact=last_name, sex__iexact=sex)
+        middle_name=middle_name, last_name__iexact=last_name, sex__iexact=sex, darasa__iexact=darasa)
 
     if request.method == 'POST':
         sub.delete()
